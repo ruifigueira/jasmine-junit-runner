@@ -2,11 +2,9 @@ package be.klak.junit.jasmine;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-
-import org.apache.commons.lang.StringUtils;
-
 import java.net.URL;
 
+import org.apache.commons.lang.StringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.Description;
@@ -29,7 +27,7 @@ public class JasmineTestRunner extends Runner {
 
 	protected final RhinoContext rhinoContext;
 	protected final JasmineSuite suiteAnnotation;
-	private final Class<?> testClass;
+	protected final Class<?> testClass;
 
 	@JasmineSuite
 	private class DefaultSuite { }
@@ -58,7 +56,7 @@ public class JasmineTestRunner extends Runner {
         if (suiteAnnotation.envJs()) {
 			context.loadEnv(suiteAnnotation.jsRootDir());
 		} else {
-			context.load(suiteAnnotation.jsRootDir(), "/lib/no-env.js");
+			context.loadFromClasspath("js/lib/no-env.js");
 		}
 
 		setUpJasmine(context);
@@ -71,7 +69,7 @@ public class JasmineTestRunner extends Runner {
 
     protected void pre(RhinoContext context) { }
 
-	private void setUpJasmine(RhinoContext context) {
+	protected void setUpJasmine(RhinoContext context) {
 		context.loadFromClasspath(JASMINE_LIB_DIR + "/jasmine.js");
 		context.loadFromClasspath(JASMINE_LIB_DIR + "/jasmine.delegator_reporter.js");
 
@@ -178,7 +176,7 @@ public class JasmineTestRunner extends Runner {
 		this.rhinoContext.exit();
     }
 
-	private Object createTestClassInstance() {
+	protected Object createTestClassInstance() {
 		try {
 			return testClass.newInstance();
 		} catch (Exception ex) {
