@@ -57,7 +57,7 @@ public class JasmineFailingSpecsTest {
 
         assertThat(failure.getDescription()).isEqualTo(startedDescription);
         assertThat(failure.getDescription().getDisplayName()).isEqualTo("will always crash");
-        assertThat(failure.getMessage()).contains("NOT_FOUND");
+        assertThat(failure.getMessage()).contains("is not defined");
     }
 
     @Test(expected = EvaluatorException.class)
