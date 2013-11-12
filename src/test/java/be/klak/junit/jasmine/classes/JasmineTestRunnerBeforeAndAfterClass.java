@@ -18,17 +18,10 @@ public class JasmineTestRunnerBeforeAndAfterClass extends JasmineTestRunnerBefor
         assertThat(runs).isEmpty();
         runs.add(RUN_MIJ_FLAG);
     }
-
-    @After
-    public void runMijAfter() {
-        assertThat(runs).containsOnly(RUN_MIJ_FLAG, RUN_MIJ_OOK_FLAG);
-        runs.remove((Object) RUN_MIJ_FLAG);
-    }
-
+    
     @After
     public void runMijAfterOok(RhinoContext context) {
-        assertThat(runs).containsOnly(RUN_MIJ_OOK_FLAG);
-        runs.remove((Object) RUN_MIJ_OOK_FLAG);
+        assertThat(runs).containsOnly(RUN_MIJ_FLAG, RUN_MIJ_OOK_FLAG);
     }
 
     public void runMijNiet() {
